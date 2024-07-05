@@ -135,13 +135,15 @@ class Predios extends Component
 
                     foreach($this->files as $file){
 
+                        $pdf = $file->store('/', 'predios_catastro');
+
                         if(env('LOCAL') === "0" || env('LOCAL') === "2"){
 
-                            $pdf = $this->documento->store('/', 'predios_catastro');
+                            $pdf = $file->store('/', 'predios_catastro');
 
                         }else{
 
-                            $pdf = $this->documento->store('predios_catastro/', 's3');
+                            $pdf = $file->store('sarchivo/predios_catastro/', 's3');
 
                         }
 
