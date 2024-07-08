@@ -320,7 +320,7 @@
                                         target="_blank"
                                         class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                     >
-                                    PDF {{ $loop->iteration }}
+                                        PDF {{ $loop->iteration }}
                                     </a>
                                 @elseif(env('LOCAL') === "1")
                                     <a
@@ -328,8 +328,8 @@
                                         target="_blank"
                                         class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                     >
-                                    PDF1 {{ $loop->iteration }}
-                                </a>
+                                        PDF {{ $loop->iteration }}
+                                    </a>
                                 @endif
 
                                 <button
@@ -460,7 +460,7 @@
                                         target="_blank"
                                         class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                     >
-                                    PDF {{ $loop->iteration }}
+                                        PDF {{ $loop->iteration }}
                                     </a>
                                 @elseif(env('LOCAL') === "1")
                                     <a
@@ -468,8 +468,10 @@
                                         target="_blank"
                                         class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                     >
-                                    PDF1 {{ $loop->iteration }}
-                                </a>
+                                        PDF {{ $loop->iteration }}
+                                    </a>
+
+                                @endif
 
                             </div>
 
