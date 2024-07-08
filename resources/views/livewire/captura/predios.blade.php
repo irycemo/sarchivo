@@ -328,7 +328,7 @@
                                         target="_blank"
                                         class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                     >
-                                    PDF2 {{ $loop->iteration }}
+                                    PDF1 {{ $loop->iteration }}
                                 </a>
                                 @endif
 
@@ -453,12 +453,22 @@
 
                             <div class="flex gap-2 bg-red-200 rounded-full p-1">
 
-                                <a
-                                    href="{{ Storage::disk('predios_catastro')->url($file['url'])}}"
-                                    target="_blank"
-                                    class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
-                                >
-                                PDF {{ $loop->iteration }}
+                                @if(env('LOCAL') === "0" || env('LOCAL') === "2")
+
+                                    <a
+                                        href="{{ Storage::disk('predios_catastro')->url($file['url'])}}"
+                                        target="_blank"
+                                        class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                                    >
+                                    PDF {{ $loop->iteration }}
+                                    </a>
+                                @elseif(env('LOCAL') === "1")
+                                    <a
+                                        href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(1)) }}"
+                                        target="_blank"
+                                        class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                                    >
+                                    PDF1 {{ $loop->iteration }}
                                 </a>
 
                             </div>
