@@ -142,7 +142,7 @@ class Predios extends Component
 
                         }elseif(env('LOCAL') === "1"){
 
-                            $pdf = $file->store('sarchivo/predios_catastro/', 's3');
+                            $pdf = $file->store('sarchivo/predios_catastro', 's3');
 
                         }
 
@@ -259,7 +259,7 @@ class Predios extends Component
 
                         }elseif(env('LOCAL') === "1"){
 
-                            $pdf = $file->store('sarchivo/predios_catastro/', 's3');
+                            $pdf = $file->store('sarchivo/predios_catastro', 's3');
 
                         }
 
