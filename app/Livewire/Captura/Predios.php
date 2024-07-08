@@ -386,9 +386,7 @@ class Predios extends Component
 
         $content = Storage::disk('s3')->get($url);
 
-        return response()->download($content, 'pdf.pdf', [
-            'Content-Type' => 'application/pdf',
-        ]);
+        return response()->file($content);
 
     }
 
