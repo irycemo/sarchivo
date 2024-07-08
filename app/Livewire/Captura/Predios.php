@@ -382,6 +382,16 @@ class Predios extends Component
         }
     }
 
+    public function verPdf($url){
+
+        $content = Storage::disk('s3')->get($url);
+
+        return response()->download($content, 'pdf.pdf', [
+            'Content-Type' => 'application/pdf',
+        ]);
+
+    }
+
     public function mount(){
 
         $this->crearModeloVacio();
