@@ -334,7 +334,7 @@ class Predios extends Component
 
             }elseif(env('LOCAL') === "1"){
 
-                Storage::disk('s3')->delete('sarchivo/predios_catastro/' . $file->url);
+                Storage::disk('s3')->delete($file->url);
 
             }
 
