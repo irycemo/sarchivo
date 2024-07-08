@@ -298,7 +298,15 @@ class Predios extends Component
 
                 foreach ($predio->archivos as $file) {
 
-                    Storage::disk('predios_catastro')->delete($file->url);
+                    if(env('LOCAL') === "0" || env('LOCAL') === "2"){
+
+                        Storage::disk('predios_catastro')->delete($file->url);
+
+                    }elseif(env('LOCAL') === "1"){
+
+                        Storage::disk('s3')->delete($file->url);
+
+                    }
 
                     $file->delete();
 
