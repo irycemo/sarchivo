@@ -12,6 +12,7 @@ use App\Traits\ComponentesTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class Predios extends Component
 {
@@ -384,9 +385,12 @@ class Predios extends Component
 
     public function verPdf($url){
 
-        $content = Storage::disk('s3')->get($url);
+        $headers = [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="filename.pdf"',
+        ];
 
-        return response()->file($content);
+        return Response::make(Storage::disk('s3')->get($url), 200, $headers);
 
     }
 
