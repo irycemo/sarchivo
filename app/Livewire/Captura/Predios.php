@@ -135,8 +135,6 @@ class Predios extends Component
 
                     foreach($this->files as $file){
 
-                        $pdf = $file->store('/', 'predios_catastro');
-
                         if(env('LOCAL') === "0" || env('LOCAL') === "2"){
 
                             $pdf = $file->store('/', 'predios_catastro');
@@ -152,6 +150,7 @@ class Predios extends Component
                             'fileable_type' => 'App\Models\Predio',
                             'url' => $pdf
                         ]);
+
                     }
 
                     $this->dispatch('removeFiles');
