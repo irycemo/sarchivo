@@ -324,7 +324,7 @@
                                     </a>
                                 @elseif(env('LOCAL') === "1")
                                     <a
-                                        href="{{ Storage::disk('s3')->url($file['url'])}}"
+                                        href="{{ Storage::disk('s3')->->temporaryUrl($file['url'], '+2 minutes')}}"
                                         target="_blank"
                                         class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                     >
