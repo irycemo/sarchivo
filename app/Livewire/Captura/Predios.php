@@ -328,7 +328,15 @@ class Predios extends Component
 
             $file = File::findorFail($this->file_id);
 
-            Storage::disk('predios_catastro')->delete($file->url);
+            if(env('LOCAL') === "0" || env('LOCAL') === "2"){
+
+                Storage::disk('predios_catastro')->delete($file->url);
+
+            }elseif(env('LOCAL') === "1"){
+
+                Storage::disk('s3')->delete('sarchivo/predios_catastro/' . $file->url);
+
+            }
 
             $file->delete();
 
