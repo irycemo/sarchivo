@@ -313,13 +313,24 @@
 
                             <div class="flex gap-2 bg-red-200 rounded-full p-1">
 
-                                <a
-                                    href="{{ Storage::disk('predios_catastro')->url($file['url'])}}"
-                                    target="_blank"
-                                    class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
-                                >
-                                PDF {{ $loop->iteration }}
-                                </a>
+                                @if(env('LOCAL') === "0" || env('LOCAL') === "2")
+
+                                    <a
+                                        href="{{ Storage::disk('predios_catastro')->url($file['url'])}}"
+                                        target="_blank"
+                                        class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                                    >
+                                    PDF {{ $loop->iteration }}
+                                    </a>
+                                @elseif(env('LOCAL') === "1")
+                                    <a
+                                        href="{{ Storage::disk('s3')->url($file['url'])}}"
+                                        target="_blank"
+                                        class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                                    >
+                                    PDF {{ $loop->iteration }}
+                                    </a>
+                                @endif
 
                                 <button
                                     wire:click="openModalDeleteFile({{$file['id']}})"
