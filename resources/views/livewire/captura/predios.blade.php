@@ -328,7 +328,7 @@
                                         target="_blank"
                                         class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                     >
-                                    PDF {{ $loop->iteration }}
+                                    PDF2 {{ $loop->iteration }}
                                 </a>
                                 @endif
 
