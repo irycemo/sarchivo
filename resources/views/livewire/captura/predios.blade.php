@@ -323,14 +323,13 @@
                                     PDF {{ $loop->iteration }}
                                     </a>
                                 @elseif(env('LOCAL') === "1")
-                                    <button
-                                        wire:click="verPdf({{$file['url']}})"
-                                        wire:loading.attr="disabled"
-                                        wire:target="verPdf({{$file['url']}})"
+                                    <a
+                                        href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(1)) }}"
+                                        target="_blank"
                                         class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                     >
                                     PDF {{ $loop->iteration }}
-                                </button>
+                                </a>
                                 @endif
 
                                 <button
