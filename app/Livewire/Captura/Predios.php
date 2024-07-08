@@ -7,11 +7,11 @@ use App\Models\Predio;
 use Livewire\Component;
 use App\Models\Movimiento;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use App\Traits\ComponentesTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 class Predios extends Component
 {
