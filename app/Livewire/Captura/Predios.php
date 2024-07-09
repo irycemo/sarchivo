@@ -175,12 +175,13 @@ class Predios extends Component
     public function guardarMovimiento(){
 
         $this->validate([
-            'movimiento.fecha' => 'nullable||date',
+            'movimiento.fecha' => 'required|date',
             'movimiento.comprobante_año' => 'nullable|numeric',
             'movimiento.comprobante_numero' => 'nullable|numeric',
             'movimiento.cuenta_tomo' => 'nullable|numeric',
             'movimiento.cuenta_folio' => 'nullable|numeric',
             'movimiento.observaciones' => 'nullable|numeric',
+            'movimiento.propietario' => 'required|string',
         ]);
 
         try {
