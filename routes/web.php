@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth', 'activo']], function(){
     Route::get('usuarios', Usuarios::class)->middleware('permission:Lista de usuarios')->name('usuarios');
 
     /* Captura */
-    Route::get('captura.predios', Predios::class)->name('captura.predios');
+    Route::get('captura_predios', Predios::class)->name('captura_predios');
 
 });
 
