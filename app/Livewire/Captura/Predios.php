@@ -124,6 +124,20 @@ class Predios extends Component
 
         $this->validate();
 
+        $predio = Predio::where('localidad', $this->modelo_editar->localidad)
+                            ->where('oficina', $this->modelo_editar->oficina)
+                            ->where('tipo_predio', $this->modelo_editar->tipo_predio)
+                            ->where('numero_registro', $this->modelo_editar->numero_registro)
+                            ->first();
+
+        if($predio){
+
+            $this->dispatch('mostrarMensaje', ['warning', "El predio ya existe."]);
+
+            return;
+
+        }
+
         try {
 
             DB::transaction(function () {
