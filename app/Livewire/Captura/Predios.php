@@ -194,7 +194,7 @@ class Predios extends Component
             'movimiento.comprobante_numero' => 'nullable|numeric',
             'movimiento.cuenta_tomo' => 'nullable|numeric',
             'movimiento.cuenta_folio' => 'nullable|numeric',
-            'movimiento.observaciones' => 'nullable|numeric',
+            'movimiento.observaciones' => 'nullable',
             'movimiento.propietario' => 'required|string',
         ]);
 
@@ -223,6 +223,7 @@ class Predios extends Component
             'movimiento.fecha' => 'required',
             'movimiento.comprobante_año' => 'required',
             'movimiento.cuenta_tomo' => 'required',
+            'movimiento.observaciones' => 'nullable',
         ]);
 
         try {
