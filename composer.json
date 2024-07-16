@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.0",
         "opcodesio/log-viewer": "^3.10",
+        "orangehill/iseed": "^3.0",
         "spatie/laravel-permission": "^6.9"
     },
     "require-dev": {

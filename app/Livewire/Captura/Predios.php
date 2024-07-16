@@ -427,18 +427,39 @@ class Predios extends Component
 
         array_push($this->fields, 'files', 'files_edit', 'file_id', 'modalEliminar', 'modalVer', 'modalMovimineto', 'modalEliminarMovimiento');
 
+        if(!auth()->user()->hasRole('Administrador')){
+
+            $this->modelo_editar->oficina = auth()->user()->oficina->oficina;
+
+        }
+
     }
 
     public function render()
     {
 
-        $predios = Predio::with('actualizadoPor')
+        if(auth()->user()->hasRole('Administrador')){
+
+            $predios = Predio::with('actualizadoPor')
                             ->when($this->filters['localidad'], fn($q, $localidad) => $q->where('localidad', $localidad))
                             ->when($this->filters['oficina'], fn($q, $oficina) => $q->where('oficina', $oficina))
                             ->when($this->filters['tipo'], fn($q, $tipo) => $q->where('tipo_predio', $tipo))
                             ->when($this->filters['registro'], fn($q, $registro) => $q->where('numero_registro', $registro))
                             ->orderBy($this->sort, $this->direction)
                             ->paginate($this->pagination);
+
+        }else{
+
+            $predios = Predio::with('actualizadoPor')
+                            ->when($this->filters['localidad'], fn($q, $localidad) => $q->where('localidad', $localidad))
+                            ->when($this->filters['oficina'], fn($q, $oficina) => $q->where('oficina', $oficina))
+                            ->when($this->filters['tipo'], fn($q, $tipo) => $q->where('tipo_predio', $tipo))
+                            ->when($this->filters['registro'], fn($q, $registro) => $q->where('numero_registro', $registro))
+                            ->where('oficina', auth()->user()->oficina->oficina)
+                            ->orderBy($this->sort, $this->direction)
+                            ->paginate($this->pagination);
+
+        }
 
         return view('livewire.captura.predios', compact('predios'))->extends('layouts.admin');
     }

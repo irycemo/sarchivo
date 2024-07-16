@@ -2,11 +2,12 @@
 
 namespace App\Livewire\Admin;
 
-use App\Constantes\Constantes;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Oficina;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Constantes\Constantes;
 use App\Traits\ComponentesTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -21,6 +22,7 @@ class Usuarios extends Component
     public $permisos;
     public $areas;
     public $localidades;
+    public $oficinas;
 
     public User $modelo_editar;
     public $role;
@@ -38,6 +40,7 @@ class Usuarios extends Component
             'modelo_editar.status' => 'required|in:activo,inactivo',
             'modelo_editar.area' => 'required',
             'modelo_editar.localidad' => 'required',
+            'modelo_editar.oficina_id' => 'required',
             'role' => 'required',
          ];
     }
@@ -152,12 +155,14 @@ class Usuarios extends Component
 
         $this->areas = Constantes::AREAS_ADSCRIPCION;
 
+        $this->oficinas = Oficina::orderBy('nombre')->get();
+
     }
 
     public function render()
     {
 
-        $usuarios = User::with('creadoPor', 'actualizadoPor')
+        $usuarios = User::with('creadoPor', 'actualizadoPor', 'oficina')
                             ->where(function($q){
                                 $q->where('name', 'LIKE', '%' . $this->search . '%');
                             })

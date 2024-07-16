@@ -271,7 +271,7 @@
 
                 <x-input-group for="modelo_editar.oficina" label="Oficina" :error="$errors->first('modelo_editar.oficina')" class="w-full">
 
-                    <x-input-text type="number" id="modelo_editar.oficina" wire:model="modelo_editar.oficina" />
+                    <x-input-text type="number" id="modelo_editar.oficina" wire:model="modelo_editar.oficina" :readonly="!auth()->user()->hasRole('Administrador')"/>
 
                 </x-input-group>
 

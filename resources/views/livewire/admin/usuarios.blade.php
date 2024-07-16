@@ -64,6 +64,7 @@
                 <x-table.heading sortable wire:click="sortBy('name')" :direction="$sort === 'name' ? $direction : null" >Nombre</x-table.heading>
                 <x-table.heading sortable wire:click="sortBy('email')" :direction="$sort === 'email' ? $direction : null" >Correo</x-table.heading>
                 <x-table.heading >Rol</x-table.heading>
+                <x-table.heading sortable wire:click="sortBy('oficina_id')" :direction="$sort === 'oficina_id' ? $direction : null" >Oficina</x-table.heading>
                 <x-table.heading sortable wire:click="sortBy('localidad')" :direction="$sort === 'localidad' ? $direction : null" >Localidad</x-table.heading>
                 <x-table.heading sortable wire:click="sortBy('area')" :direction="$sort === 'area' ? $direction : null" >Área</x-table.heading>
                 <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sort === 'created_at' ? $direction : null">Registro</x-table.heading>
@@ -125,6 +126,14 @@
                                 {{ $usuario->getRoleNames()->first() }}
 
                             @endif
+
+                        </x-table.cell>
+
+                        <x-table.cell>
+
+                            <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Oficina</span>
+
+                            {{ $usuario->oficina->nombre }}
 
                         </x-table.cell>
 
@@ -300,6 +309,22 @@
                             @foreach ($roles as $role)
 
                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
+
+                            @endforeach
+
+                        </x-input-select>
+
+                    </x-input-group>
+
+                    <x-input-group for="modelo_editar.oficina_id" label="Oficina" :error="$errors->first('modelo_editar.oficina_id')" class="w-full">
+
+                        <x-input-select id="modelo_editar.oficina_id" wire:model="modelo_editar.oficina_id" class="w-full">
+
+                            <option value="">Seleccione una opción</option>
+
+                            @foreach ($oficinas as $oficina)
+
+                                <option value="{{ $oficina->id }}">{{ $oficina->nombre }} ({{ $oficina->oficina }})</option>
 
                             @endforeach
 
