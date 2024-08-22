@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'area' => 'Departamento De Operación Y Desarrollo De Sistemas',
             'email' => 'enrique_j_@hotmail.com',
             'password' => bcrypt('12345678'),
+            'oficina_id' => 52
         ])->assignRole('Administrador');
 
         User::create([
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
             'email' => 'subdirti.irycem@correo.michoacan.gob.mx',
             'password' => bcrypt('12345678'),
             'area' => 'Subdirección de Tecnologías de la Información',
+            'oficina_id' => 52
         ])->assignRole('Administrador');
 
     }

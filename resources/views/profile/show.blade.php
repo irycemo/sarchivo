@@ -2,8 +2,6 @@
 
 @section('content')
 
-    <x-app-layout>
-
         <h1 class="text-3xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-thin mb-6  bg-white">{{ __('Profile') }}</h1>
 
         <div>
@@ -43,6 +41,5 @@
                 @endif
             </div>
         </div>
-    </x-app-layout>
 
 @endsection
