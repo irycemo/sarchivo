@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\Predio;
 use App\Traits\ModelosTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,10 @@ class Movimiento extends Model
 
     public function predio(){
         return $this->belongsTo(Predio::class);
+    }
+
+    public function getFechaFormateadaAttribute(){
+        return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha'])->format('d-m-Y');
     }
 
 }

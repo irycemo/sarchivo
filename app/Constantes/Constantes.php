@@ -8,7 +8,8 @@ class Constantes{
         'Roles',
         'Permisos',
         'Usuarios',
-        'Captura'
+        'Captura',
+        'Consulta'
     ];
 
     const AÑOS = [

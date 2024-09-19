@@ -7,6 +7,7 @@ use App\Livewire\Captura\Predios;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SetPasswordController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Livewire\Consutla\Consulta;
 
 Route::get('/', function () {
     return redirect('login');
@@ -25,6 +26,9 @@ Route::group(['middleware' => ['auth', 'activo']], function(){
 
     /* Captura */
     Route::get('captura_predios', Predios::class)->name('captura_predios');
+
+    /* Consulta */
+    Route::get('consulta_predios', Consulta::class)->name('consulta_predios');
 
 });
 

@@ -311,41 +311,41 @@
 
                     @foreach ($files_edit as $file)
 
-                            <div class="flex gap-2 bg-red-200 rounded-full p-1">
+                        <div class="flex gap-2 bg-red-200 rounded-full p-1">
 
-                                @if(env('LOCAL') === "0" || env('LOCAL') === "2")
+                            @if(env('LOCAL') === "0" || env('LOCAL') === "2")
 
-                                    <a
-                                        href="{{ Storage::disk('predios_catastro')->url($file['url'])}}"
-                                        target="_blank"
-                                        class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
-                                    >
-                                        PDF {{ $loop->iteration }}
-                                    </a>
-                                @elseif(env('LOCAL') === "1")
-                                    <a
-                                        href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(1)) }}"
-                                        target="_blank"
-                                        class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
-                                    >
-                                        PDF {{ $loop->iteration }}
-                                    </a>
-                                @endif
-
-                                <button
-                                    wire:click="openModalDeleteFile({{$file['id']}})"
-                                    wire:loading.attr="disabled"
-                                    wire:target="openModalDeleteFile({{$file['id']}})"
-                                    class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 flex focus:outline-red-900"
+                                <a
+                                    href="{{ Storage::disk('predios_catastro')->url($file['url'])}}"
+                                    target="_blank"
+                                    class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                 >
+                                    PDF {{ $loop->iteration }}
+                                </a>
+                            @elseif(env('LOCAL') === "1")
+                                <a
+                                    href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(1)) }}"
+                                    target="_blank"
+                                    class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                                >
+                                    PDF {{ $loop->iteration }}
+                                </a>
+                            @endif
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
+                            <button
+                                wire:click="openModalDeleteFile({{$file['id']}})"
+                                wire:loading.attr="disabled"
+                                wire:target="openModalDeleteFile({{$file['id']}})"
+                                class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 flex focus:outline-red-900"
+                            >
 
-                                </button>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
 
-                            </div>
+                            </button>
+
+                        </div>
 
                     @endforeach
 
@@ -451,29 +451,29 @@
 
                     @foreach ($modelo_editar->archivos as $file)
 
-                            <div class="flex gap-2 bg-red-200 rounded-full p-1">
+                        <div class="flex gap-2 bg-red-200 rounded-full p-1">
 
-                                @if(env('LOCAL') === "0" || env('LOCAL') === "2")
+                            @if(env('LOCAL') === "0" || env('LOCAL') === "2")
 
-                                    <a
-                                        href="{{ Storage::disk('predios_catastro')->url($file['url'])}}"
-                                        target="_blank"
-                                        class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
-                                    >
-                                        PDF {{ $loop->iteration }}
-                                    </a>
-                                @elseif(env('LOCAL') === "1")
-                                    <a
-                                        href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(1)) }}"
-                                        target="_blank"
-                                        class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
-                                    >
-                                        PDF {{ $loop->iteration }}
-                                    </a>
+                                <a
+                                    href="{{ Storage::disk('predios_catastro')->url($file['url'])}}"
+                                    target="_blank"
+                                    class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                                >
+                                    PDF {{ $loop->iteration }}
+                                </a>
+                            @elseif(env('LOCAL') === "1")
+                                <a
+                                    href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(1)) }}"
+                                    target="_blank"
+                                    class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                                >
+                                    PDF {{ $loop->iteration }}
+                                </a>
 
-                                @endif
+                            @endif
 
-                            </div>
+                        </div>
 
                     @endforeach
 
