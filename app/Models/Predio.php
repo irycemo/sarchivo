@@ -33,7 +33,7 @@ class Predio extends Model
 
     public function cuentaPredial(){
 
-        return $this->localidad . '-' . $this->oficina . '-' . $this->tipo_predio . '-' . $this->numero_registro;
+        return '0' . $this->localidad . '-' . $this->oficina . '-0' . $this->tipo_predio . '-' . $this->numero_registro;
 
     }
 

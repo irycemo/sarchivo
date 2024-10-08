@@ -64,6 +64,30 @@ return [
             'throw' => false,
         ],
 
+        'tomos_catastro' => [
+            'driver' => 'local',
+            'root' => storage_path('app/tomos_catastro'),
+            'url' => env('APP_URL').'/tomos_catastro',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'legajos_catastro' => [
+            'driver' => 'local',
+            'root' => storage_path('app/legajos_catastro'),
+            'url' => env('APP_URL').'/legajos_catastro',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'carpetas' => [
+            'driver' => 'local',
+            'root' => storage_path('app/carpetas'),
+            'url' => env('APP_URL').'/carpetas',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
     ],
 
     /*
@@ -80,6 +104,9 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
         public_path('predios_catastro') => storage_path('app/predios_catastro'),
+        public_path('tomos_catastro') => storage_path('app/tomos_catastro'),
+        public_path('legajos_catastro') => storage_path('app/legajos_catastro'),
+        public_path('carpetas') => storage_path('app/carpetas'),
     ],
 
 ];

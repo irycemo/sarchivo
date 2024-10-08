@@ -162,7 +162,7 @@ class Usuarios extends Component
     public function render()
     {
 
-        $usuarios = User::with('creadoPor', 'actualizadoPor', 'oficina')
+        $usuarios = User::with('creadoPor', 'actualizadoPor')
                             ->where(function($q){
                                 $q->where('name', 'LIKE', '%' . $this->search . '%');
                             })

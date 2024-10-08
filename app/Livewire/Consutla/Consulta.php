@@ -4,6 +4,7 @@ namespace App\Livewire\Consutla;
 
 use App\Models\Predio;
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
 
 class Consulta extends Component
 {
@@ -15,6 +16,12 @@ class Consulta extends Component
 
     public $predio;
 
+    public $carpeta;
+
+    public $tomos = [];
+
+    public $legajos = [];
+
     protected function rules(){
         return [
             'localidad' => 'required|numeric',
@@ -25,6 +32,8 @@ class Consulta extends Component
     }
 
     public function buscarPredio(){
+
+        $this->reset(['predio', 'carpeta', 'tomos', 'legajos']);
 
         $this->validate();
 
@@ -38,6 +47,76 @@ class Consulta extends Component
         if(!$this->predio){
 
             $this->dispatch('mostrarMensaje', ['error', "No se encontro el predio."]);
+
+        }
+
+        if(env('LOCAL') === "0" || env('LOCAL') === "2"){
+
+            $this->carpeta = Storage::disk('carpetas')->url($this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $this->predio->cuentaPredial() . '.pdf');
+
+        }elseif(env('LOCAL') === "1"){
+
+            $this->carpeta = Storage::disk('s3')->temporaryUrl('sarchivo/carpetas/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $this->predio->cuentaPredial() . '.pdf', now()->addMinutes(1));
+
+        }
+
+        foreach($this->predio->movimientos as $movimiento){
+
+            if(env('LOCAL') === "0" || env('LOCAL') === "2"){
+
+                $tomos = Storage::disk('tomos_catastro')->allFiles($this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $movimiento->cuenta_tomo);
+
+                array_push($this->tomos, [
+                    'movimiento_id' => $movimiento->id,
+                    'tomos' => $tomos
+                ]);
+
+                $tomos_bis = Storage::disk('tomos_catastro')->allFiles($this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $movimiento->cuenta_tomo . ' bis');
+
+                if(!empty($tomos_bis)){
+
+                    array_push($this->tomos, [
+                        'movimiento_id' => $movimiento->id,
+                        'tomos' => $tomos_bis
+                    ]);
+
+                }
+
+                $legajos = Storage::disk('legajos_catastro')->allFiles($this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $movimiento->comprobante_año);
+
+                array_push($this->legajos, [
+                    'movimiento_id' => $movimiento->id,
+                    'legajos' => $legajos
+                ]);
+
+            }elseif(env('LOCAL') === "1"){
+
+                $tomos = Storage::disk('s3')->allFiles('sarchivo/tomos_catastro/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $movimiento->cuenta_tomo);
+
+                array_push($this->tomos, [
+                    'movimiento_id' => $movimiento->id,
+                    'tomos' => $tomos
+                ]);
+
+                $tomos_bis = Storage::disk('s3')->allFiles('sarchivo/tomos_catastro/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $movimiento->cuenta_tomo . ' bis');
+
+                if(!empty($tomos_bis)){
+
+                    array_push($this->tomos, [
+                        'movimiento_id' => $movimiento->id,
+                        'tomos' => $tomos_bis
+                    ]);
+
+                }
+
+                $legajos = Storage::disk('s3')->allFiles('sarchivo/legajos_catastro/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $movimiento->comprobante_año);
+
+                array_push($this->legajos, [
+                    'movimiento_id' => $movimiento->id,
+                    'legajos' => $legajos
+                ]);
+
+            }
 
         }
 

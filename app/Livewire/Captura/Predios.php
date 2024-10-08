@@ -12,7 +12,6 @@ use App\Traits\ComponentesTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Response;
 
 class Predios extends Component
 {
@@ -32,6 +31,12 @@ class Predios extends Component
     public $modalVer = false;
     public $modalMovimineto = false;
     public $modalEliminarMovimiento = false;
+
+    public $tomos = [];
+
+    public $legajos = [];
+
+    public $carpeta;
 
     public $filters = [
         'localidad' => '',
@@ -95,6 +100,76 @@ class Predios extends Component
             $this->modelo_editar = $modelo;
 
         $this->modelo_editar->load('movimientos', 'archivos');
+
+        foreach($this->modelo_editar->movimientos as $movimiento){
+
+            if(env('LOCAL') === "0" || env('LOCAL') === "2"){
+
+                $tomos = Storage::disk('tomos_catastro')->allFiles($this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $movimiento->cuenta_tomo);
+
+                array_push($this->tomos, [
+                    'movimiento_id' => $movimiento->id,
+                    'tomos' => $tomos
+                ]);
+
+                $tomos_bis = Storage::disk('tomos_catastro')->allFiles($this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $movimiento->cuenta_tomo . ' bis');
+
+                if(!empty($tomos_bis)){
+
+                    array_push($this->tomos, [
+                        'movimiento_id' => $movimiento->id,
+                        'tomos' => $tomos_bis
+                    ]);
+
+                }
+
+                $legajos = Storage::disk('legajos_catastro')->allFiles($this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $movimiento->comprobante_año);
+
+                array_push($this->legajos, [
+                    'movimiento_id' => $movimiento->id,
+                    'legajos' => $legajos
+                ]);
+
+            }elseif(env('LOCAL') === "1"){
+
+                $tomos = Storage::disk('s3')->allFiles('sarchivo/tomos_catastro/' . $this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $movimiento->cuenta_tomo);
+
+                array_push($this->tomos, [
+                    'movimiento_id' => $movimiento->id,
+                    'tomos' => $tomos
+                ]);
+
+                $tomos_bis = Storage::disk('s3')->allFiles('sarchivo/tomos_catastro/' . $this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $movimiento->cuenta_tomo . ' bis');
+
+                if(!empty($tomos_bis)){
+
+                    array_push($this->tomos, [
+                        'movimiento_id' => $movimiento->id,
+                        'tomos' => $tomos_bis
+                    ]);
+
+                }
+
+                $legajos = Storage::disk('s3')->allFiles('sarchivo/legajos_catastro/' . $this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $movimiento->comprobante_año);
+
+                array_push($this->legajos, [
+                    'movimiento_id' => $movimiento->id,
+                    'legajos' => $legajos
+                ]);
+
+            }
+
+        }
+
+        if(env('LOCAL') === "0" || env('LOCAL') === "2"){
+
+            $this->carpeta = Storage::disk('carpetas')->url($this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $this->modelo_editar->cuentaPredial() . '.pdf');
+
+        }elseif(env('LOCAL') === "1"){
+
+            $this->carpeta = Storage::disk('s3')->temporaryUrl('sarchivo/carpetas/' . $this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $this->modelo_editar->cuentaPredial() . '.pdf', now()->addMinutes(1));
+
+        }
 
     }
 
@@ -408,17 +483,6 @@ class Predios extends Component
             $this->dispatch('mostrarMensaje',['error', "Lo sentimos hubo un error inténtalo de nuevo"]);
 
         }
-    }
-
-    public function verPdf($url){
-
-        $headers = [
-            'Content-Type'        => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="filename.pdf"',
-        ];
-
-        return Response::make(Storage::disk('s3')->get($url), 200, $headers);
-
     }
 
     public function mount(){

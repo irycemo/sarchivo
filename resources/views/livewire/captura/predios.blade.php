@@ -460,7 +460,7 @@
                                     target="_blank"
                                     class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                 >
-                                    PDF {{ $loop->iteration }}
+                                    Tarjeta {{ $loop->iteration }}
                                 </a>
                             @elseif(env('LOCAL') === "1")
                                 <a
@@ -468,7 +468,7 @@
                                     target="_blank"
                                     class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                 >
-                                    PDF {{ $loop->iteration }}
+                                    Tarjeta {{ $loop->iteration }}
                                 </a>
 
                             @endif
@@ -476,6 +476,30 @@
                         </div>
 
                     @endforeach
+
+                    <div class="flex gap-2 bg-red-200 rounded-full p-1">
+
+                        @if(env('LOCAL') === "0" || env('LOCAL') === "2")
+
+                            <a
+                                href="{{ $carpeta }}"
+                                target="_blank"
+                                class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                            >
+                                Carpeta
+                            </a>
+                        @elseif(env('LOCAL') === "1")
+                            <a
+                                href="{{ $carpeta }}"
+                                target="_blank"
+                                class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                            >
+                                Carpeta
+                            </a>
+
+                        @endif
+
+                    </div>
 
                 </div>
 
@@ -522,9 +546,78 @@
 
                     </div>
 
-                    <p><strong>Fecha:</strong> {{ $movimiento->fecha }}</p>
-                    <p><strong>Comprobante:</strong> Número: {{ $movimiento->comprobante_numero ?? 'N/A' }} / Año: {{ $movimiento->comprobante_año }} <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">ver pdf</a></p>
-                    <p><strong>Cuenta:</strong> Tomo: {{ $movimiento->cuenta_tomo }} / Folio: {{ $movimiento->cuenta_folio ?? 'N/A' }} <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">ver pdf</a></p>
+                    <p><strong>Fecha:</strong> {{ $movimiento->fecha_formateada }}</p>
+
+                    <p><strong>Comprobante:</strong> Número: {{ $movimiento->comprobante_numero ?? 'N/A' }} / Año: {{ $movimiento->comprobante_año }}</p>
+
+                    @foreach ($legajos as $legajo)
+
+                        @if($legajo['movimiento_id'] == $movimiento->id)
+
+                            @foreach ($legajo['legajos'] as $legajo)
+
+                                @if(env('LOCAL') === "0" || env('LOCAL') === "2")
+
+                                <a
+                                    href="{{ Storage::disk('legajos_catastro')->url($legajo) }}"
+                                    class="bg-blue-400 px-1 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
+                                    target="_blank">
+                                    Legajo {{ $legajo }}
+                                </a>
+
+                                @elseif(env('LOCAL') === "1")
+
+                                    <a
+                                        href="{{ Storage::disk('s3')->temporaryUrl('sarchivo/legajos_catastro/' . $legajo, now()->addMinutes(1)) }}"
+                                        target="_blank"
+                                        class="bg-blue-400 px-1 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
+                                    >
+                                        Legajo {{ $legajo }}
+                                    </a>
+
+                                @endif
+
+                            @endforeach
+
+                        @endif
+
+                    @endforeach
+
+                    <p><strong>Cuenta:</strong> Tomo: {{ $movimiento->cuenta_tomo }} / Folio: {{ $movimiento->cuenta_folio ?? 'N/A' }}</p>
+
+                    @foreach ($tomos as $tomo)
+
+                        @if($tomo['movimiento_id'] == $movimiento->id)
+
+                            @foreach ($tomo['tomos'] as $tomo)
+
+                                @if(env('LOCAL') === "0" || env('LOCAL') === "2")
+
+                                    <a
+                                        href="{{ Storage::disk('tomos_catastro')->url($tomo) }}"
+                                        class="bg-blue-400 px-1 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
+                                        target="_blank">
+                                        Tomo {{ $tomo }}
+                                    </a>
+
+                                @elseif(env('LOCAL') === "1")
+
+                                    <a
+                                        href="{{ Storage::disk('s3')->temporaryUrl('sarchivo/tomos_catastro/' . $tomo, now()->addMinutes(1)) }}"
+                                        target="_blank"
+                                        class="bg-blue-400 px-1 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
+                                    >
+                                        Tomo {{ $tomo }}
+                                    </a>
+
+                                @endif
+
+                            @endforeach
+
+                        @endif
+
+                    @endforeach
+
                     <p><strong>Propietario:</strong> {{ $movimiento->propietario }}</p>
                     @if($movimiento->observaciones)
                         <p><strong>Observaciones:</strong> {{ $movimiento->observaciones }}</p>
