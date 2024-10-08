@@ -560,7 +560,7 @@
 
                                 <a
                                     href="{{ Storage::disk('legajos_catastro')->url($legajo) }}"
-                                    class="bg-blue-400 px-1 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
+                                    class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
                                     target="_blank">
                                     Legajo {{ $legajo }}
                                 </a>
@@ -570,7 +570,7 @@
                                     <a
                                         href="{{ Storage::disk('s3')->temporaryUrl('sarchivo/legajos_catastro/' . $legajo, now()->addMinutes(1)) }}"
                                         target="_blank"
-                                        class="bg-blue-400 px-1 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
+                                        class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
                                     >
                                         Legajo {{ $legajo }}
                                     </a>
@@ -595,7 +595,7 @@
 
                                     <a
                                         href="{{ Storage::disk('tomos_catastro')->url($tomo) }}"
-                                        class="bg-blue-400 px-1 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
+                                        class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
                                         target="_blank">
                                         Tomo {{ $tomo }}
                                     </a>
@@ -605,7 +605,7 @@
                                     <a
                                         href="{{ Storage::disk('s3')->temporaryUrl('sarchivo/tomos_catastro/' . $tomo, now()->addMinutes(1)) }}"
                                         target="_blank"
-                                        class="bg-blue-400 px-1 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
+                                        class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
                                     >
                                         Tomo {{ $tomo }}
                                     </a>
