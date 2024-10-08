@@ -48,6 +48,8 @@ class Consulta extends Component
 
             $this->dispatch('mostrarMensaje', ['error', "No se encontro el predio."]);
 
+            return;
+
         }
 
         if(env('LOCAL') === "0" || env('LOCAL') === "2"){
