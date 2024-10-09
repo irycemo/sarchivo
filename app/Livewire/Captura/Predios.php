@@ -491,7 +491,7 @@ class Predios extends Component
 
         $this->crearModeloVacio();
 
-        array_push($this->fields, 'files', 'files_edit', 'file_id', 'modalEliminar', 'modalVer', 'modalMovimineto', 'modalEliminarMovimiento');
+        array_push($this->fields, 'files', 'files_edit', 'file_id', 'modalEliminar', 'modalVer', 'modalMovimineto', 'modalEliminarMovimiento', 'legajos', 'tomos', 'carpeta');
 
         if(!auth()->user()->hasRole('Administrador')){
 
