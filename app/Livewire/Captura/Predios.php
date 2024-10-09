@@ -172,8 +172,7 @@ class Predios extends Component
 
             $array = Storage::disk('s3')->allFiles('sarchivo/carpetas/' . $this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio);
 
-            dd(in_array($array, ['sarchivo/carpetas/' . $this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $this->modelo_editar->cuentaPredial() . '.pdf']));
-            if(in_array($array, ['sarchivo/carpetas/' . $this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $this->modelo_editar->cuentaPredial() . '.pdf']))
+            if(in_array('sarchivo/carpetas/' . $this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $this->modelo_editar->cuentaPredial() . '.pdf', $array))
                 $this->carpeta = Storage::disk('s3')->temporaryUrl('sarchivo/carpetas/' . $this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $this->modelo_editar->cuentaPredial() . '.pdf', now()->addMinutes(1));
 
         }
