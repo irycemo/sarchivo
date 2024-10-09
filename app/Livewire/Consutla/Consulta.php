@@ -54,11 +54,13 @@ class Consulta extends Component
 
         if(env('LOCAL') === "0" || env('LOCAL') === "2"){
 
-            $this->carpeta = Storage::disk('carpetas')->url($this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $this->predio->cuentaPredial() . '.pdf');
+            if(Storage::disk('carpetas')->has($this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $this->predio->cuentaPredial() . '.pdf'))
+                $this->carpeta = Storage::disk('carpetas')->url($this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $this->predio->cuentaPredial() . '.pdf');
 
         }elseif(env('LOCAL') === "1"){
 
-            $this->carpeta = Storage::disk('s3')->temporaryUrl('sarchivo/carpetas/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $this->predio->cuentaPredial() . '.pdf', now()->addMinutes(1));
+            if(Storage::disk('s3')->has('sarchivo/carpetas/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $this->predio->cuentaPredial() . '.pdf'))
+                $this->carpeta = Storage::disk('s3')->temporaryUrl('sarchivo/carpetas/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $this->predio->cuentaPredial() . '.pdf', now()->addMinutes(1));
 
         }
 

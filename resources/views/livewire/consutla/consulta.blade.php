@@ -86,23 +86,27 @@
 
                         @endif
 
-                        @if(env('LOCAL') === "0" || env('LOCAL') === "2")
+                        @if($carpeta)
 
-                            <a
-                                href="{{ $carpeta }}"
-                                target="_blank"
-                                class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
-                            >
-                                Carpeta
-                            </a>
-                        @elseif(env('LOCAL') === "1")
-                            <a
-                                href="{{ $carpeta }}"
-                                target="_blank"
-                                class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
-                            >
-                                Carpeta
-                            </a>
+                            @if(env('LOCAL') === "0" || env('LOCAL') === "2")
+
+                                <a
+                                    href="{{ $carpeta }}"
+                                    target="_blank"
+                                    class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                                >
+                                    Carpeta
+                                </a>
+                            @elseif(env('LOCAL') === "1")
+                                <a
+                                    href="{{ $carpeta }}"
+                                    target="_blank"
+                                    class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                                >
+                                    Carpeta
+                                </a>
+
+                            @endif
 
                         @endif
 
