@@ -607,7 +607,7 @@
                                 @elseif(env('LOCAL') === "1")
 
                                     <a
-                                        href="{{ Storage::disk('s3')->temporaryUrl('sarchivo/tomos_catastro/' . $tomo, now()->addMinutes(1)) }}"
+                                        href="{{ Storage::disk('s3')->temporaryUrl($tomo, now()->addMinutes(1)) }}"
                                         target="_blank"
                                         class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
                                     >
