@@ -75,7 +75,7 @@ class Predios extends Component
     public function updatedFilters() { $this->resetPage(); }
 
     public function crearModeloVacio(){
-        $this->modelo_editar = Predio::make();
+        $this->modelo_editar = Predio::make(['localidad' => 1]);
         $this->movimiento = Movimiento::make();
     }
 
