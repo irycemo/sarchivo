@@ -168,7 +168,7 @@ class Predios extends Component
 
         }elseif(env('LOCAL') === "1"){
 
-            if(Storage::disk('s3')->has('sarchivo/carpetas/' . $this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $this->modelo_editar->cuentaPredial() . '.pdf'))
+            /* if(Storage::disk('s3')->has('sarchivo/carpetas/' . $this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $this->modelo_editar->cuentaPredial() . '.pdf')) */
                 $this->carpeta = Storage::disk('s3')->temporaryUrl('sarchivo/carpetas/' . $this->modelo_editar->oficina . '/' . $this->modelo_editar->tipo_predio . '/' . $this->modelo_editar->cuentaPredial() . '.pdf', now()->addMinutes(1));
 
         }
