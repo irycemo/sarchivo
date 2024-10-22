@@ -167,38 +167,42 @@
 
                                 <p><strong>Cuenta (Tomo/Folio):</strong> {{ $movimiento->cuenta_tomo }}/{{ $movimiento->cuenta_folio }}</p>
 
-                                @foreach ($tomos as $tomo)
+                                @if($movimiento->cuenta_tomo && $movimiento->cuenta_folio)
 
-                                    @if($tomo['movimiento_id'] == $movimiento->id)
+                                    @foreach ($tomos as $tomo)
 
-                                        @foreach ($tomo['tomos'] as $tomo)
+                                        @if($tomo['movimiento_id'] == $movimiento->id)
 
-                                            @if(env('LOCAL') === "0" || env('LOCAL') === "2")
+                                            @foreach ($tomo['tomos'] as $tomo)
 
-                                                <a
-                                                    href="{{ Storage::disk('tomos_catastro')->url($tomo) }}"
-                                                    class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
-                                                    target="_blank">
-                                                    Tomo {{ $tomo }}
-                                                </a>
+                                                @if(env('LOCAL') === "0" || env('LOCAL') === "2")
 
-                                            @elseif(env('LOCAL') === "1")
+                                                    <a
+                                                        href="{{ Storage::disk('tomos_catastro')->url($tomo) }}"
+                                                        class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
+                                                        target="_blank">
+                                                        Tomo {{ $tomo }}
+                                                    </a>
 
-                                                <a
-                                                    href="{{ Storage::disk('s3')->temporaryUrl($tomo, now()->addMinutes(1)) }}"
-                                                    target="_blank"
-                                                    class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
-                                                >
-                                                    Tomo {{ $tomo }}
-                                                </a>
+                                                @elseif(env('LOCAL') === "1")
 
-                                            @endif
+                                                    <a
+                                                        href="{{ Storage::disk('s3')->temporaryUrl($tomo, now()->addMinutes(1)) }}"
+                                                        target="_blank"
+                                                        class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
+                                                    >
+                                                        Tomo {{ $tomo }}
+                                                    </a>
 
-                                        @endforeach
+                                                @endif
 
-                                    @endif
+                                            @endforeach
 
-                                @endforeach
+                                        @endif
+
+                                    @endforeach
+
+                                @endif
 
                             </div>
 
