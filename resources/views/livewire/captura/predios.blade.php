@@ -324,7 +324,7 @@
                                 </a>
                             @elseif(env('LOCAL') === "1")
                                 <a
-                                    href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(1)) }}"
+                                    href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(10)) }}"
                                     target="_blank"
                                     class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                 >
@@ -464,7 +464,7 @@
                                 </a>
                             @elseif(env('LOCAL') === "1")
                                 <a
-                                    href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(1)) }}"
+                                    href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(10)) }}"
                                     target="_blank"
                                     class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                 >
@@ -572,7 +572,7 @@
                                 @elseif(env('LOCAL') === "1")
 
                                     <a
-                                        href="{{ Storage::disk('s3')->temporaryUrl($legajo, now()->addMinutes(1)) }}"
+                                        href="{{ Storage::disk('s3')->temporaryUrl($legajo, now()->addMinutes(10)) }}"
                                         target="_blank"
                                         class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
                                     >
@@ -609,7 +609,7 @@
                                     @elseif(env('LOCAL') === "1")
 
                                         <a
-                                            href="{{ Storage::disk('s3')->temporaryUrl($tomo, now()->addMinutes(1)) }}"
+                                            href="{{ Storage::disk('s3')->temporaryUrl($tomo, now()->addMinutes(10)) }}"
                                             target="_blank"
                                             class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
                                         >

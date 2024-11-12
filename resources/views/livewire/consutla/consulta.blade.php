@@ -10,7 +10,7 @@
 
                 <input type="number" placeholder="localidad" min="1" class="bg-white rounded-l border-r-0 text-sm w-20 focus:ring-0 @error('localidad') border-red-500 @enderror" wire:model="localidad">
 
-                <input type="number" placeholder="oficina" min="1" class="bg-white text-sm  w-20 focus:ring-0 @error('oficina') border-red-500 @enderror" wire:model="oficina" @if(!auth()->user()->hasRole('Administrador')) readonly @endif>
+                <input type="number" placeholder="oficina" min="1" class="bg-white text-sm  w-20 focus:ring-0 @error('oficina') border-red-500 @enderror" wire:model="oficina" @if(!auth()->user()->hasRole(['Administrador', 'Consulta general'])) readonly @endif>
 
                 <input type="number" placeholder="Tipo" min="1" max="2" class="bg-white text-sm w-20 focus:ring-0 border-l-0 @error('tipo') border-red-500 @enderror" wire:model="tipo">
 
@@ -73,7 +73,7 @@
                                         </a>
                                     @elseif(env('LOCAL') === "1")
                                         <a
-                                            href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(1)) }}"
+                                            href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(10)) }}"
                                             target="_blank"
                                             class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
                                         >
@@ -146,7 +146,7 @@
                                             @elseif(env('LOCAL') === "1")
 
                                                 <a
-                                                    href="{{ Storage::disk('s3')->temporaryUrl($legajo, now()->addMinutes(1)) }}"
+                                                    href="{{ Storage::disk('s3')->temporaryUrl($legajo, now()->addMinutes(10)) }}"
                                                     target="_blank"
                                                     class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
                                                 >
@@ -187,7 +187,7 @@
                                                 @elseif(env('LOCAL') === "1")
 
                                                     <a
-                                                        href="{{ Storage::disk('s3')->temporaryUrl($tomo, now()->addMinutes(1)) }}"
+                                                        href="{{ Storage::disk('s3')->temporaryUrl($tomo, now()->addMinutes(10)) }}"
                                                         target="_blank"
                                                         class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
                                                     >
