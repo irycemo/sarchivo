@@ -4,10 +4,11 @@ use App\Livewire\Admin\Roles;
 use App\Livewire\Admin\Permisos;
 use App\Livewire\Admin\Usuarios;
 use App\Livewire\Captura\Predios;
+use App\Livewire\Consulta\Archivos;
+use App\Livewire\Consulta\Consulta;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SetPasswordController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Livewire\Consutla\Consulta;
 
 Route::get('/', function () {
     return redirect('login');
@@ -29,6 +30,7 @@ Route::group(['middleware' => ['auth', 'activo']], function(){
 
     /* Consulta */
     Route::get('consulta_predios', Consulta::class)->name('consulta_predios');
+    Route::get('consulta_archivos', Archivos::class)->name('consulta_archivos');
 
 });
 

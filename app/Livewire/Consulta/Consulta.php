@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Consutla;
+namespace App\Livewire\Consulta;
 
 use App\Models\Predio;
 use Livewire\Component;
@@ -134,6 +134,6 @@ class Consulta extends Component
 
     public function render()
     {
-        return view('livewire.consutla.consulta')->extends('layouts.admin');
+        return view('livewire.consulta.consulta')->extends('layouts.admin');
     }
 }
