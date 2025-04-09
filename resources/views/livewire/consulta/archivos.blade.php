@@ -8,6 +8,8 @@
 
         <div class="bg-white rounded-lg shadow-xl p-4 col-span-3" wire:ignore wire:loading.class.delaylongest="opacity-50">
 
+            <x-h4>Directorio</x-h4>
+
             <div class="-mx-5 text-gray-700" x-data="fileTree({{ json_encode($this->arbol) }})">
 
                 <ul>
