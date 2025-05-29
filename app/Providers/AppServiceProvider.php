@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
             });
 
             Livewire::setUpdateRoute(function ($handle) {
-                return Route::post('/sarchivo/public/livewire/update', $handle);
+                return Route::post('/sarchivo/public/vendor/livewire/update', $handle);
             });
 
         }elseif(env('LOCAL') === "0"){
