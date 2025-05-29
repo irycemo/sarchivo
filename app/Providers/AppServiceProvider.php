@@ -34,11 +34,11 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
 
             Livewire::setScriptRoute(function ($handle) {
-                return Route::get('public/vendor/livewire/livewire.js', $handle)->middleware('web');
+                return Route::get('/sarchivo/public/vendor/livewire/livewire.js', $handle);
             });
 
             Livewire::setUpdateRoute(function ($handle) {
-                return Route::post('public/livewire/update', $handle)->middleware('web');
+                return Route::post('/sarchivo/public/livewire/update', $handle);
             });
 
         }elseif(env('LOCAL') === "0"){
