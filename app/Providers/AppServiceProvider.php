@@ -33,13 +33,13 @@ class AppServiceProvider extends ServiceProvider
 
             URL::forceScheme('https');
 
-            Livewire::setScriptRoute(function ($handle) {
+           /*  Livewire::setScriptRoute(function ($handle) {
                 return Route::get('/sarchivo/public/vendor/livewire/livewire.js', $handle)->middleware('web');
             });
 
             Livewire::setUpdateRoute(function ($handle) {
                 return Route::post('/sarchivo/public/livewire/update', $handle)->middleware('web');
-            });
+            }); */
 
         }elseif(env('LOCAL') === "0"){
 
