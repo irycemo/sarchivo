@@ -51,8 +51,30 @@ class Archivos extends Component
                 if($directorio == 'sarchivo/carpetas'){
 
                     $this->arbol[str_replace('sarchivo/', '', $directorio)][$oficina][1] = [];
+
+                    $subDirectorios = Storage::disk('s3')->directories('sarchivo/carpetas/' . $oficina . '/1');
+
+                    foreach($subDirectorios as $subdirectorio){
+
+                        $this->arbol[str_replace('sarchivo/', '', $directorio)][$oficina][1][str_replace('sarchivo/carpetas/' . $oficina . '/1/', '', $subdirectorio)]= [];
+
+                    }
+
                     $this->arbol[str_replace('sarchivo/', '', $directorio)][$oficina][2] = [];
+
+                    foreach($subDirectorios as $subdirectorio){
+
+                        $this->arbol[str_replace('sarchivo/', '', $directorio)][$oficina][2][str_replace('sarchivo/carpetas/' . $oficina . '/2/', '', $subdirectorio)]= [];
+
+                    }
+
                     $this->arbol[str_replace('sarchivo/', '', $directorio)][$oficina]['Compuesto'] = [];
+
+                    foreach($subDirectorios as $subdirectorio){
+
+                        $this->arbol[str_replace('sarchivo/', '', $directorio)][$oficina]['Compuesto'][str_replace('sarchivo/carpetas/' . $oficina . '/Compuesto/', '', $subdirectorio)]= [];
+
+                    }
 
                 }elseif($directorio == 'sarchivo/legajos_catastro'){
 
