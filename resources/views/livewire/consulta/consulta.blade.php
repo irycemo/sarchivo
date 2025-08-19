@@ -10,7 +10,7 @@
 
                 <input type="number" placeholder="localidad" min="1" class="bg-white rounded-l border-r-0 text-sm w-20 focus:ring-0 @error('localidad') border-red-500 @enderror" wire:model="localidad">
 
-                <input type="number" placeholder="oficina" min="1" class="bg-white text-sm  w-20 focus:ring-0 @error('oficina') border-red-500 @enderror" wire:model="oficina" @if(!auth()->user()->hasRole(['Administrador', 'Consulta general'])) readonly @endif>
+                <input type="number" placeholder="oficina" min="1" class="bg-white text-sm  w-20 focus:ring-0 @error('oficina') border-red-500 @enderror" wire:model="oficina" @if(!auth()->user()->hasRole(['Administrador', 'Consulta general', 'Revisor'])) readonly @endif>
 
                 <input type="number" placeholder="Tipo" min="1" max="2" class="bg-white text-sm w-20 focus:ring-0 border-l-0 @error('tipo') border-red-500 @enderror" wire:model="tipo">
 
