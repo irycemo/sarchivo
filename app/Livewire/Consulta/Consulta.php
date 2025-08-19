@@ -105,10 +105,14 @@ class Consulta extends Component
 
                 $tomos = Storage::disk('s3')->allFiles('sarchivo/tomos_catastro/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $movimiento->cuenta_tomo);
 
-                array_push($this->tomos, [
-                    'movimiento_id' => $movimiento->id,
-                    'tomos' => $tomos
-                ]);
+                if($movimiento->cuenta_tomo){
+
+                    array_push($this->tomos, [
+                        'movimiento_id' => $movimiento->id,
+                        'tomos' => $tomos
+                    ]);
+
+                }
 
                 $tomos_bis = Storage::disk('s3')->allFiles('sarchivo/tomos_catastro/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $movimiento->cuenta_tomo . ' bis');
 
@@ -123,10 +127,14 @@ class Consulta extends Component
 
                 $legajos = Storage::disk('s3')->allFiles('sarchivo/legajos_catastro/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $movimiento->comprobante_año);
 
-                array_push($this->legajos, [
-                    'movimiento_id' => $movimiento->id,
-                    'legajos' => $legajos
-                ]);
+                if($movimiento->comprobante_año){
+
+                    array_push($this->legajos, [
+                        'movimiento_id' => $movimiento->id,
+                        'legajos' => $legajos
+                    ]);
+
+                }
 
             }
 
