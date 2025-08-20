@@ -23,7 +23,7 @@ class Archivos extends Component
 
     public function mount(){
 
-        if(auth()->user()->hasRole(['Administrador', 'Consulta general'])){
+        if(auth()->user()->hasRole(['Administrador', 'Consulta general', 'Revision'])){
 
             $this->oficinas = Oficina::whereHas('usuarios', function($q){
                                             $q->whereHas('roles', function($q){
