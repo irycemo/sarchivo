@@ -500,7 +500,7 @@ class Predios extends Component
 
         array_push($this->fields, 'files', 'files_edit', 'file_id', 'modalEliminar', 'modalVer', 'modalMovimineto', 'modalEliminarMovimiento', 'legajos', 'tomos', 'carpeta');
 
-        if(!auth()->user()->hasRole('Administrador')){
+        if(!auth()->user()->hasRole(['Administrador', 'Revision'])){
 
             $this->modelo_editar->oficina = auth()->user()->oficina->oficina;
 
@@ -511,7 +511,7 @@ class Predios extends Component
     public function render()
     {
 
-        if(auth()->user()->hasRole('Administrador')){
+        if(auth()->user()->hasRole(['Administrador', 'Revision'])){
 
             $predios = Predio::with('actualizadoPor')
                             ->when($this->filters['localidad'], fn($q, $localidad) => $q->where('localidad', $localidad))
