@@ -306,7 +306,7 @@ class Predios extends Component
         $this->validate([
             'movimiento.fecha' => 'required',
             'movimiento.comprobante_año' => 'required',
-            'movimiento.cuenta_tomo' => 'required',
+            'movimiento.cuenta_tomo' => 'nullable',
             'movimiento.observaciones' => 'nullable',
         ]);
 
