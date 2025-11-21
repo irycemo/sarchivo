@@ -274,7 +274,7 @@ class Predios extends Component
 
         $this->validate([
             'movimiento.fecha' => 'required|date',
-            'movimiento.comprobante_año' => 'nullable|numeric',
+            'movimiento.comprobante_año' => 'nullable|numeric|min:1900|max:' . now()->format('Y'),
             'movimiento.comprobante_numero' => 'nullable|numeric',
             'movimiento.cuenta_tomo' => 'nullable|numeric',
             'movimiento.cuenta_folio' => 'nullable|numeric',
