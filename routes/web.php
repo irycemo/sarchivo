@@ -9,6 +9,7 @@ use App\Livewire\Consulta\Consulta;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SetPasswordController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Livewire\Reportes\Reportes;
 
 Route::get('/', function () {
     return redirect('login');
@@ -31,6 +32,9 @@ Route::group(['middleware' => ['auth', 'activo']], function(){
     /* Consulta */
     Route::get('consulta_predios', Consulta::class)->name('consulta_predios');
     Route::get('consulta_archivos', Archivos::class)->name('consulta_archivos');
+
+    /* Reportes */
+    Route::get('reportes', Reportes::class)->name('reportes');
 
 });
 
