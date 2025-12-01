@@ -21,8 +21,10 @@ class Movimientos extends Component
     #[Computed]
     public function movimientos(){
 
-        return Movimiento::whereHas('predio', function($q){
-                                $q->where('oficina', $this->oficina);
+        return Movimiento::when($this->usuario && $this->usuario != '', function($q){
+                                $q->whereHas('predio', function($q){
+                                    $q->where('oficina', $this->oficina);
+                                });
                             })
                             ->when($this->usuario && $this->usuario != '', function($q){
                                 $q->where('creado_por', $this->usuario);

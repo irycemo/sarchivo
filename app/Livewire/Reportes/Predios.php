@@ -21,7 +21,9 @@ class Predios extends Component
     #[Computed]
     public function predios(){
 
-        return Predio::where('oficina', $this->oficina)
+        return Predio::when($this->oficina && $this->oficina != '', function($q){
+                            $q->where('oficina', $this->oficina);
+                        })
                         ->when($this->usuario && $this->usuario != '', function($q){
                             $q->where('creado_por', $this->usuario);
                         })

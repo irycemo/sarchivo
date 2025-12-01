@@ -29,10 +29,12 @@ class Reportes extends Component
         if($this->area == 'movimientos'){
 
             $this->verMovimientos = true;
+            $this->verPredios = false;
 
         }elseif($this->area == 'predios'){
 
             $this->verPredios = true;
+            $this->verMovimientos = false;
 
         }
 
