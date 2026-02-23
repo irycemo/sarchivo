@@ -36,6 +36,8 @@ class Predios extends Component
 
     public $legajos = [];
 
+    public $tarjetas = [];
+
     public $carpeta;
 
     public $filters = [

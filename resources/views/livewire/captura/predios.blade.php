@@ -449,7 +449,7 @@
 
                 <div class="flex flex-row flex-wrap gap-2 items-center mb-2">
 
-                    @foreach ($modelo_editar->archivos as $file)
+                    @forelse ($modelo_editar->archivos as $file)
 
                         <div class="flex gap-2 bg-red-200 rounded-full p-1">
 
@@ -475,7 +475,17 @@
 
                         </div>
 
-                    @endforeach
+                    @empty
+
+                        <a
+                            href="{{ Storage::disk('s3')->temporaryUrl('sarchivo/tarjetas_catastro/' . $modelo_editar->oficina . '/' . $modelo_editar->tipo_predio . '/' . $modelo_editar->numero_registro . '.pdf', now()->addMinutes(10)) }}"
+                            target="_blank"
+                            class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                        >
+                            Tarjeta
+                        </a>
+
+                    @endforelse
 
                     @if($carpeta)
 
