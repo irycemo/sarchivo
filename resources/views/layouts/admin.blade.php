@@ -49,6 +49,12 @@
 
                 @include('layouts.sidebar-reportes')
 
+                @can('Área de solicitudes')
+
+                    @include('layouts.solicitudes')
+
+                @endcan
+
             </nav>
 
         </div>

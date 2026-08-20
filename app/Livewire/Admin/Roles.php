@@ -2,13 +2,14 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Role;
-use Livewire\Component;
 use App\Models\Permission;
-use Livewire\WithPagination;
+use App\Models\Role;
 use App\Traits\ComponentesTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\Computed;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Roles extends Component
 {
@@ -63,9 +64,9 @@ class Roles extends Component
 
                 $this->modelo_editar->permissions()->sync($this->listaDePermisos);
 
-                $this->resetearTodo($borrado = true);
+                $this->resetearTodo();
 
-                $this->dispatch('mostrarMensaje', ['success', "El role se creó con éxito."]);
+                $this->dispatch('mostrarMensaje', ['success', "El rol se creó con éxito."]);
 
             });
 
@@ -92,7 +93,7 @@ class Roles extends Component
 
                 $this->modelo_editar->permissions()->sync($this->listaDePermisos);
 
-                $this->resetearTodo($borrado = true);
+                $this->resetearTodo();
 
                 $this->dispatch('mostrarMensaje', ['success', "El rol se actualizó con éxito."]);
 
@@ -118,7 +119,7 @@ class Roles extends Component
 
             $this->resetearTodo($borrado = true);
 
-            $this->dispatch('mostrarMensaje', ['success', "El role se eliminó con exito."]);
+            $this->dispatch('mostrarMensaje', ['success', "El rol se eliminó con éxito."]);
 
         } catch (\Throwable $th) {
 
@@ -127,6 +128,17 @@ class Roles extends Component
             $this->resetearTodo();
 
         }
+
+    }
+
+    #[Computed]
+    public function roles(){
+
+        return Role::select('id','name', 'creado_por', 'actualizado_por', 'created_at', 'updated_at')
+                        ->with('creadoPor:id,name', 'actualizadoPor:id,name')
+                        ->where('name', 'LIKE', '%' . $this->search . '%')
+                        ->orderBy($this->sort, $this->direction)
+                        ->paginate($this->pagination);
 
     }
 
@@ -146,13 +158,7 @@ class Roles extends Component
 
     public function render()
     {
-
-        $roles = Role::with('creadoPor', 'actualizadoPor', 'permissions')
-                            ->where('name', 'LIKE', '%' . $this->search . '%')
-                            ->orderBy($this->sort, $this->direction)
-                            ->paginate($this->pagination);
-
-        return view('livewire.admin.roles', compact('roles'))->extends('layouts.admin');
+        return view('livewire.admin.roles')->extends('layouts.admin');
     }
 
 }

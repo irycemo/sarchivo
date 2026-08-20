@@ -1,15 +1,16 @@
 <?php
 
-use App\Livewire\Admin\Roles;
+use App\Http\Controllers\Auth\SetPasswordController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Livewire\Admin\Permisos;
+use App\Livewire\Admin\Roles;
 use App\Livewire\Admin\Usuarios;
 use App\Livewire\Captura\Predios;
 use App\Livewire\Consulta\Archivos;
 use App\Livewire\Consulta\Consulta;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\SetPasswordController;
-use App\Http\Controllers\Dashboard\DashboardController;
 use App\Livewire\Reportes\Reportes;
+use App\Livewire\Solicitudes\Solicitudes;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('login');
@@ -35,6 +36,9 @@ Route::group(['middleware' => ['auth', 'activo']], function(){
 
     /* Reportes */
     Route::get('reportes', Reportes::class)->name('reportes');
+
+    /* solicitudes */
+    Route::get('solicitudes', Solicitudes::class)->name('solicitudes');
 
 });
 
