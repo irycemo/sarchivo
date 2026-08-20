@@ -232,7 +232,7 @@
 
                 <div class="overflow-x-auto">
 
-                    <table class="rounded-lg shadow-xl w-full overflow-hidden table-auto  xl:table-fixed">
+                    <table class="rounded-lg shadow-xl w-full overflow-hidden table-auto lg:table-fixed">
 
                         <thead class="border-b border-gray-300 bg-gray-50">
 
