@@ -34,6 +34,7 @@
             </div>
 
         </div>
+
         @if($predio)
 
             <div class="bg-white shadow-lg p-4 rounded-lg text-sm">
@@ -62,51 +63,27 @@
 
                                 @foreach ($predio->archivos as $file)
 
-                                    @if(env('LOCAL') === "0" || env('LOCAL') === "2")
-
-                                        <a
-                                            href="{{ Storage::disk('predios_catastro')->url($file['url'])}}"
-                                            target="_blank"
-                                            class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
-                                        >
-                                            Tarjeta {{ $loop->iteration }}
-                                        </a>
-                                    @elseif(env('LOCAL') === "1")
-                                        <a
-                                            href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(10)) }}"
-                                            target="_blank"
-                                            class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
-                                        >
-                                            Tarjeta {{ $loop->iteration }}
-                                        </a>
-
-                                    @endif
+                                    <a
+                                        href="{{ Storage::disk('s3')->temporaryUrl($file['url'], now()->addMinutes(10)) }}"
+                                        target="_blank"
+                                        class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                                    >
+                                        Tarjeta {{ $loop->iteration }}
+                                    </a>
 
                                 @endforeach
 
                         @endif
 
-                        @if($carpeta)
+                        @if($tarjeta)
 
-                            @if(env('LOCAL') === "0" || env('LOCAL') === "2")
-
-                                <a
-                                    href="{{ $carpeta }}"
-                                    target="_blank"
-                                    class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
-                                >
-                                    Carpeta
-                                </a>
-                            @elseif(env('LOCAL') === "1")
-                                <a
-                                    href="{{ $carpeta }}"
-                                    target="_blank"
-                                    class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
-                                >
-                                    Carpeta
-                                </a>
-
-                            @endif
+                            <a
+                                href="{{ $tarjeta }}"
+                                target="_blank"
+                                class="bg-red-400 hover:shadow-lg text-white text-xs px-3 py-1 rounded-full hover:bg-red-700 focus:outline-red-900 w-auto"
+                            >
+                                Tarjeta
+                            </a>
 
                         @endif
 
@@ -134,26 +111,13 @@
 
                                         @foreach ($legajo['legajos'] as $legajo)
 
-                                            @if(env('LOCAL') === "0" || env('LOCAL') === "2")
-
-                                                <a
-                                                    href="{{ Storage::disk('legajos_catastro')->url($legajo) }}"
-                                                    class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
-                                                    target="_blank">
-                                                    Legajo {{ $legajo }}
-                                                </a>
-
-                                            @elseif(env('LOCAL') === "1")
-
-                                                <a
-                                                    href="{{ Storage::disk('s3')->temporaryUrl($legajo, now()->addMinutes(10)) }}"
-                                                    target="_blank"
-                                                    class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
-                                                >
-                                                    Legajo {{ $legajo }}
-                                                </a>
-
-                                            @endif
+                                            <a
+                                                href="{{ Storage::disk('s3')->temporaryUrl($legajo, now()->addMinutes(10)) }}"
+                                                target="_blank"
+                                                class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
+                                            >
+                                                Legajo {{ $legajo }}
+                                            </a>
 
                                         @endforeach
 
@@ -175,26 +139,13 @@
 
                                             @foreach ($tomo['tomos'] as $tomo)
 
-                                                @if(env('LOCAL') === "0" || env('LOCAL') === "2")
-
-                                                    <a
-                                                        href="{{ Storage::disk('tomos_catastro')->url($tomo) }}"
-                                                        class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
-                                                        target="_blank">
-                                                        Tomo {{ $tomo }}
-                                                    </a>
-
-                                                @elseif(env('LOCAL') === "1")
-
-                                                    <a
-                                                        href="{{ Storage::disk('s3')->temporaryUrl($tomo, now()->addMinutes(10)) }}"
-                                                        target="_blank"
-                                                        class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
-                                                    >
-                                                        Tomo {{ $tomo }}
-                                                    </a>
-
-                                                @endif
+                                                <a
+                                                    href="{{ Storage::disk('s3')->temporaryUrl($tomo, now()->addMinutes(10)) }}"
+                                                    target="_blank"
+                                                    class="bg-blue-400 px-2 text-white rounded-full mr-2 whitespace-nowrap hover:cursor-pointer hover:bg-blue-500"
+                                                >
+                                                    Tomo {{ $tomo }}
+                                                </a>
 
                                             @endforeach
 
