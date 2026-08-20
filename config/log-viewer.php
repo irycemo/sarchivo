@@ -73,7 +73,6 @@ return [
 
     'middleware' => [
         'web',
-        'auth',
         //\Opcodes\LogViewer\Http\Middleware\AuthorizeLogViewer::class,
     ],
 
