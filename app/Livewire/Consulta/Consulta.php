@@ -59,8 +59,8 @@ class Consulta extends Component
 
         }elseif(env('LOCAL') === "1"){
 
-            if(Storage::disk('s3')->has('sarchivo/carpetas/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $this->predio->cuentaPredial() . '.pdf'))
-                $this->carpeta = Storage::disk('s3')->temporaryUrl('sarchivo/carpetas/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $this->predio->cuentaPredial() . '.pdf', now()->addMinutes(1));
+            if(Storage::disk('s3')->has('sarchivo/tarjetas_catastro/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $this->predio->numero_registro . '.pdf'))
+                $this->carpeta = Storage::disk('s3')->temporaryUrl('sarchivo/tarjetas_catastro/' . $this->predio->oficina . '/' . $this->predio->tipo_predio . '/' . $this->predio->numero_registro . '.pdf', now()->addMinutes(1));
 
         }
 
