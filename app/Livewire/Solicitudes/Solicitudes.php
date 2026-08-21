@@ -154,6 +154,26 @@ class Solicitudes extends Component
 
     }
 
+    public function borrar(Solicitud $solicitud){
+
+        try {
+
+            $solicitud->predios()->detach();
+
+            $solicitud->delete();
+
+            $this->dispatch('mostrarMensaje', ['success', "La solicitud se eliminó con éxito."]);
+
+        } catch (\Throwable $th) {
+
+            Log::error("Error al borrar archivo de la solicitud solicitud id: " . $this->modelo_editar->id . " por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th);
+
+            $this->dispatch('mostrarMensaje', ['error', "Ha ocurrido un error."]);
+
+        }
+
+    }
+
     #[Computed]
     public function solicitudes(){
 

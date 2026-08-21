@@ -126,17 +126,18 @@
 
                                     @endcan
 
-                                    {{-- @can('Borrar solicitud')
+                                    @can('Borrar solicitud')
 
                                         <button
-                                            wire:click="abrirModalBorrar({{$solicitud->id}}"
+                                            wire:click="borrar({{ $solicitud->id }})"
                                             wire:loading.attr="disabled"
+                                            wire:confirm="¿Esta seguro que desea eliminar la solicitud?"
                                             class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
                                             role="menuitem">
                                             Borrar solicitud
                                         </button>
 
-                                    @endcan --}}
+                                    @endcan
 
                                 </div>
 
@@ -183,38 +184,6 @@
         </x-table>
 
     </div>
-
-    <x-confirmation-modal wire:model="modalBorrar">
-
-        <x-slot name="title">
-            Eliminar Solicitud
-        </x-slot>
-
-        <x-slot name="content">
-            ¿Está seguro que desea eliminar la solicitud? No será posible recuperar la información.
-        </x-slot>
-
-        <x-slot name="footer">
-
-            <x-secondary-button
-                wire:click="$toggle('modalBorrar')"
-                wire:loading.attr="disabled"
-            >
-                No
-            </x-secondary-button>
-
-            <x-danger-button
-                class="ml-2"
-                wire:click="borrar()"
-                wire:loading.attr="disabled"
-                wire:target="borrar"
-            >
-                Borrar
-            </x-danger-button>
-
-        </x-slot>
-
-    </x-confirmation-modal>
 
     <x-dialog-modal wire:model="modalVer">
 
