@@ -3,6 +3,7 @@
 namespace App\Livewire\Solicitudes;
 
 use App\Models\PredioSolicitud;
+use App\Models\Predio;
 use App\Models\Solicitud;
 use App\Traits\ComponentesTrait;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +24,12 @@ class Solicitudes extends Component
     public $modalBorrar = false;
     public $solicitud_seleccionada;
     public $predios_solicitados;
+    public $filters = [
+        'localidad' => '',
+        'oficina' => '',
+        'tipo_predio' => '',
+        'numero_registro' => ''
+    ];
 
     public Solicitud $modelo_editar;
 
@@ -177,10 +184,32 @@ class Solicitudes extends Component
     #[Computed]
     public function solicitudes(){
 
+        $predio = null;
+
+        if(
+            ! empty($this->filters['localidad']) &&
+            ! empty($this->filters['oficina']) &&
+            ! empty($this->filters['tipo_predio']) &&
+            ! empty($this->filters['numero_registro'])
+        ){
+
+            $predio = Predio::where('localidad', $this->filters['localidad'])
+                                ->where('oficina', $this->filters['oficina'])
+                                ->where('tipo_predio', $this->filters['tipo_predio'])
+                                ->where('numero_registro', $this->filters['numero_registro'])
+                                ->first();
+
+        }
+
         return Solicitud::with('actualizadoPor:id,name')
                             ->withCount('predios')
                             ->when(! empty($this->estado), function($q){
                                 $q->where('estado', $this->estado);
+                            })
+                            ->when($predio, function ($q) use($predio){
+                                $q->whereHas('predios', function($q) use($predio){
+                                    $q->where('predio_solicituds.predio_id', $predio->id);
+                                });
                             })
                             ->where('solicitante', 'like', '%' . $this->solicitante . '%')
                             ->orderBy($this->sort, $this->direction)

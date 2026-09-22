@@ -19,6 +19,15 @@
 
                 </x-input-select>
 
+                <input type="number" wire:model.live.debounce.500ms="filters.localidad" placeholder="Localidad" class="bg-white rounded-full text-sm w-24">
+
+                <input type="number" wire:model.live.debounce.500ms="filters.oficina" placeholder="Oficina" class="bg-white rounded-full text-sm w-24">
+
+                <input type="number" wire:model.live.debounce.500ms="filters.tipo_predio" placeholder="T. Predio" class="bg-white rounded-full text-sm w-24">
+
+                <input type="number" wire:model.live.debounce.500ms="filters.numero_registro" placeholder="# Registro" class="bg-white rounded-full text-sm w-24">
+
+
                 <x-input-select class="bg-white rounded-full text-sm w-min" wire:model.live="pagination">
 
                     <option value="10">10</option>
