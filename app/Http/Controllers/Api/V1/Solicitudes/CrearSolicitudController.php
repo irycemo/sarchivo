@@ -154,6 +154,12 @@ class CrearSolicitudController extends Controller
 
         if(!$predio) return;
 
+        if(! $predio->disponible){
+
+            throw new GeneralException('El archivo del predio no esta disponible.');
+
+        }
+
         $solicitud = Solicitud::whereHas('predios', function($q) use($predio){
                                     $q->where('predio_id', $predio->id);
                                 })
