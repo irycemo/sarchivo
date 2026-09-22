@@ -26,12 +26,12 @@ class Predios extends Component
 
     }
 
-    public function inactivarPredio(Predio $predio){
+    public function toggelEstadoPredio(Predio $predio, int $estado){
 
         try {
 
             $predio->update([
-                'estado' => 'inactivo',
+                'estado' => $estado ? 'activo' : 'inactivo',
                 'actualizado_por' => auth()->id()
             ]);
 

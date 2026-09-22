@@ -136,14 +136,29 @@
 
                                     <div x-cloak x-show="open_drop_down" x-on:click="open_drop_down=false" x-on:click.away="open_drop_down=false" class="z-50 absolute -right-20 lg:right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
 
-                                        <button
-                                            wire:click="inactivarPredio({{ $predio->id }})"
-                                            wire:loading.attr="disabled"
-                                            wire:confirm="¿Esta seguro que quiere inactivar el predio? No será posible hacer solicitudes del mismo."
-                                            class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
-                                            role="menuitem">
-                                            Inactivar predio
-                                        </button>
+                                        @if($predio->estado == 'activo')
+
+                                            <button
+                                                wire:click="toggelEstadoPredio({{ $predio->id }}, 0)"
+                                                wire:loading.attr="disabled"
+                                                wire:confirm="¿Esta seguro que quiere cambiar el estado del predio? No será posible hacer solicitudes del mismo."
+                                                class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                                                role="menuitem">
+                                                Inactivar predio
+                                            </button>
+
+                                        @else
+
+                                            <button
+                                                wire:click="toggelEstadoPredio({{ $predio->id }}, 1)"
+                                                wire:loading.attr="disabled"
+                                                wire:confirm="¿Esta seguro que quiere cambiar el estado del predio?"
+                                                class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                                                role="menuitem">
+                                                Activar predio
+                                            </button>
+
+                                        @endif
 
                                     </div>
 
