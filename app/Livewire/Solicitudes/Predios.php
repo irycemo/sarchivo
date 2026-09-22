@@ -3,6 +3,7 @@
 namespace App\Livewire\Solicitudes;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Log;
 use App\Models\Predio;
 
 class Predios extends Component
@@ -25,8 +26,28 @@ class Predios extends Component
 
     }
 
+    public function inactivarPredio(Predio $predio){
+
+        try {
+
+            $predio->update([
+                'estado' => 'inactivo',
+                'actualizado_por' => auth()->id()
+            ]);
+
+            $this->predio->refresh();
+
+        } catch (\Throwable $th) {
+
+            Log::error("Error al inactivar predio por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th);
+
+            $this->dispatch('mostrarMensaje', ['error', "Ha ocurrido un error."]);
+        }
+
+    }
+
     public function render()
     {
-        return view('livewire.solicitudes.predios');
+        return view('livewire.solicitudes.predios')->extends('layouts.admin');
     }
 }

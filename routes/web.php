@@ -9,6 +9,7 @@ use App\Livewire\Captura\Predios;
 use App\Livewire\Consulta\Archivos;
 use App\Livewire\Consulta\Consulta;
 use App\Livewire\Reportes\Reportes;
+use App\Livewire\Solicitudes\Predios as SolicitudesPredios;
 use App\Livewire\Solicitudes\Solicitudes;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,7 @@ Route::group(['middleware' => ['auth', 'activo']], function(){
 
     /* solicitudes */
     Route::get('solicitudes', Solicitudes::class)->name('solicitudes');
+    Route::get('solicitudes_predios', SolicitudesPredios::class)->name('solicitudes_predios');
 
 });
 

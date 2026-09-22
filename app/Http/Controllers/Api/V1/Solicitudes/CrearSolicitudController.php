@@ -79,6 +79,7 @@ class CrearSolicitudController extends Controller
                 'oficina' =>  $data['oficina'],
                 'tipo_predio' =>  $data['tipo_predio'],
                 'numero_registro' =>  $data['numero_registro'],
+                'estado' => 'activo'
             ]);
 
         }
@@ -154,7 +155,7 @@ class CrearSolicitudController extends Controller
 
         if(!$predio) return;
 
-        if(! $predio->disponible){
+        if($predio->estado != 'activo'){
 
             throw new GeneralException('El archivo del predio no esta disponible.');
 
