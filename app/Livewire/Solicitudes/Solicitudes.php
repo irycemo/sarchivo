@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Solicitudes;
 
+use App\Exceptions\GeneralException;
 use App\Models\PredioSolicitud;
 use App\Models\Predio;
 use App\Models\Solicitud;
@@ -47,6 +48,123 @@ class Solicitudes extends Component
         $this->predios_solicitados = PredioSolicitud::with('entregadoPor:id,name', 'recibidoPor:id,name', 'predio')
                                                         ->where('solicitud_id', $this->modelo_editar->id)
                                                         ->get();
+
+    }
+
+    public function entregarArchivo(int $predio_id){
+
+        try {
+
+            DB::transaction(function () use($predio_id){
+
+                $this->modelo_editar->update([
+                    'estado' => 'parcial',
+                    'actualizado_por' => auth()->id()
+                ]);
+
+                $predio_solicitado = $this->predios_solicitados->where('id', $predio_id)->first();
+
+                if($predio_solicitado){
+
+                    $predio_solicitado->update([
+                                                'entregado_por' => auth()->id(),
+                                                'entregado_en' => now()
+                                            ]);
+
+                }else{
+
+                    throw new GeneralException('No se encontro el predio.');
+
+                }
+
+                $this->predios_solicitados = PredioSolicitud::with('entregadoPor:id,name', 'recibidoPor:id,name', 'predio')
+                                                        ->where('solicitud_id', $this->modelo_editar->id)
+                                                        ->get();
+
+                $todos_entregados = $this->predios_solicitados->every(function($predio_solicitado) { return $predio_solicitado->entregado_por ?? false; });
+
+                if($todos_entregados){
+
+                    $this->modelo_editar->update([
+                        'estado' => 'entregado',
+                        'actualizado_por' => auth()->id()
+                    ]);
+
+                }
+
+            });
+
+        } catch (GeneralException $ex) {
+
+            $this->dispatch('mostrarMensaje', ['warning', $ex->getMessage()]);
+
+        } catch (\Throwable $th) {
+
+            Log::error("Error al entregar solicitud id: " . $this->modelo_editar->id . " por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th);
+
+            $this->dispatch('mostrarMensaje', ['error', "Ha ocurrido un error."]);
+
+        }
+
+    }
+
+    public function eliminarPredio(PredioSolicitud $predio){
+
+        try {
+
+            $predio->delete();
+
+            $this->predios_solicitados = PredioSolicitud::with('entregadoPor:id,name', 'recibidoPor:id,name', 'predio')
+                                                        ->where('solicitud_id', $this->modelo_editar->id)
+                                                        ->get();
+
+            if(!$this->predios_solicitados->count()){
+
+                $this->modelo_editar->delete();
+
+                $this->modalVer = false;
+
+                return;
+
+            }
+
+            $todos_entregados = $this->predios_solicitados->every(function($predio_solicitado) { return $predio_solicitado->recibido_por ?? false; });
+
+            if($todos_entregados){
+
+                $this->modelo_editar->update([
+                    'estado' => 'concluido',
+                    'actualizado_por' => auth()->id()
+                ]);
+
+            }
+
+            $todos_recibidos = $this->predios_solicitados->every(function($predio_solicitado) { return $predio_solicitado->recibido_por ?? false; });
+
+            if($todos_recibidos){
+
+                $this->modelo_editar->update([
+                    'estado' => 'concluido',
+                    'actualizado_por' => auth()->id()
+                ]);
+
+            }
+
+        } catch (\Throwable $th) {
+
+            Log::error(
+                "Error al eliminar predio de solicitud",
+                [
+                    'message' => $th->getMessage(),
+                    'predio_id' => $predio->id,
+                    'cuenta_predial' => $predio->cuentaPredial(),
+                    'trace' => $th
+                ]
+            );
+
+            $this->dispatch('mostrarMensaje', ['error', "Ha ocurrido un error."]);
+
+        }
 
     }
 
@@ -99,9 +217,9 @@ class Solicitudes extends Component
                                                         ->where('solicitud_id', $this->modelo_editar->id)
                                                         ->get();
 
-                $todos_entregados = $this->predios_solicitados->every(function($predio_solicitado) { return $predio_solicitado->recibido_por ?? false; });
+                $todos_recibidos = $this->predios_solicitados->every(function($predio_solicitado) { return $predio_solicitado->recibido_por ?? false; });
 
-                if($todos_entregados){
+                if($todos_recibidos){
 
                     $this->modelo_editar->update([
                         'estado' => 'concluido',

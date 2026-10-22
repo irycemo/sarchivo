@@ -96,7 +96,7 @@ class CrearSolicitudController extends Controller
 
     private function buscarSolicitudNueva(string $solicitante){
 
-        return Solicitud::where('estado', 'nuevo')
+        return Solicitud::where('estado', '!=', 'concluido')
                             ->where('solicitante', $solicitante)
                             ->first();
 

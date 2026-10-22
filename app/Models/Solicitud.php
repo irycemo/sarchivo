@@ -19,6 +19,7 @@ class Solicitud extends Model
             'entregado' => 'green-400',
             'recibido' => 'yellow-400',
             'concluido' => 'gray-400',
+            'parcial' => 'yellow-400',
         ][$this->estado] ?? 'gray-400';
     }
 

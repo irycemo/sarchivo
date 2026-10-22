@@ -218,9 +218,7 @@
                                 <th class="px-2 py-3">Predio</th>
                                 <th class="px-2 py-3">Entregado el</th>
                                 <th class="px-2 py-3">Recibido el</th>
-                                @if($modelo_editar->estado == "entregado")
-                                    <th></th>
-                                @endif
+                                <th></th>
                             </tr>
 
                         </thead>
@@ -267,19 +265,59 @@
 
                                     </td>
 
-                                    @if($modelo_editar->estado == "entregado" && $predio_solicitud->recibido_por == null)
+                                    @if( $predio_solicitud->entregado_por == null)
 
-                                        <td>
+                                        <td class="px-2 py-3 flex gap-4 items-center">
+
+                                            <x-button-yellow
+                                                wire:click="entregarArchivo({{ $predio_solicitud->id }})"
+                                                wire:loading.attr="disabled"
+                                                wire:target="entregarArchivo({{ $predio_solicitud->id }})"
+                                                wire:confirm="¿Esta seguro que desea entregar el archivo?"
+                                                title="Entregar archivo">
+
+                                                <img wire:loading wire:target="entregarArchivo({{ $predio_solicitud->id }})" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+                                                </svg>
+
+
+                                            </x-button-yellow>
+
+                                            <x-button-red
+                                                wire:click="eliminarPredio({{ $predio_solicitud->id }})"
+                                                wire:loading.attr="disabled"
+                                                wire:target="eliminarPredio({{ $predio_solicitud->id }})"
+                                                wire:confirm="¿Esta seguro que desea eliminar el predio de la solicitud?"
+                                                title="Eliminar predio">
+
+                                                <img wire:loading wire:target="eliminarPredio({{ $predio_solicitud->id }})" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                </svg>
+
+                                            </x-button-red>
+
+                                        </td>
+
+                                    @elseif( $predio_solicitud->recibido_por == null)
+
+                                        <td class="px-2 py-3">
 
                                             <x-button-blue
                                                 wire:click="recibirArchivo({{ $predio_solicitud->id }})"
                                                 wire:loading.attr="disabled"
                                                 wire:target="recibirArchivo({{ $predio_solicitud->id }})"
-                                                wire:confirm="¿Esta seguro que desea recibir el archivo?">
+                                                wire:confirm="¿Esta seguro que desea recibir el archivo?"
+                                                title="Recibir archivo">
 
                                                 <img wire:loading wire:target="recibirArchivo({{ $predio_solicitud->id }})" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
 
-                                                Recibir
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+                                                </svg>
 
                                             </x-button-blue>
 
@@ -305,7 +343,7 @@
 
             <div class="flex gap-4">
 
-                @if($modelo_editar->getKey() && $modelo_editar->estado == 'nuevo')
+                @if($modelo_editar->getKey() && in_array($modelo_editar->estado, ['nuevo', 'pendiente']))
 
                     <x-button-blue
                         wire:click="entregarSolicitud"
